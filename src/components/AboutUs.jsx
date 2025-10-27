@@ -31,8 +31,8 @@ const TEAM = [
     image: "advita-sonawane.jpg", // Place this file in /public/assets/
     college: "PICT",
     department: "IT",
-    github: "https://github.com/dev4",
-    email: "dev4@keyrushers.com"
+    github: "https://github.com/pinterest395",
+    email: "advita58@gmail.com"
   }
 ];
 
