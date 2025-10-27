@@ -1,0 +1,67 @@
+.typing-container {
+  width: 92%;
+  max-width: clamp(900px, 92vw, 1200px);
+  margin: 0 auto;
+  text-align: center;
+  box-sizing: border-box;
+}
+
+.top-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 1rem;
+}
+
+.theme-toggle {
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+  color: var(--text);
+}
+
+.timer {
+  font-weight: bold;
+}
+
+/* Added for ~15 words per line control */
+.text-display-container {
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+  width: 100%;
+  margin: 0 auto;
+  overflow: hidden;
+  flex: 1 1 auto;
+}
+
+.text-display-inner {
+  width: clamp(760px, 92vw, 1200px);
+  max-height: 60vh;
+  overflow: auto;
+  padding: clamp(10px, 2vh, 18px);
+  border-radius: 12px;
+  background: var(--panel, #fafafa);
+  box-shadow: 0 1px 0 rgba(0,0,0,0.04) inset;
+  box-sizing: border-box;
+}
+
+.word {
+  display: inline-block;
+  margin: 0 10px 8px 0;
+  font-size: clamp(17px, 1.9vw, 22px);
+  line-height: 1.8;
+  white-space: nowrap;
+}
+
+@media (max-width: 420px) {
+  .text-display-inner {
+    width: 96vw;
+    max-height: 58vh;
+  }
+  .word {
+    font-size: clamp(16px, 4.5vw, 18px);
+  }
+}

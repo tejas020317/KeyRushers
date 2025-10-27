@@ -1,0 +1,13 @@
+/* Galaxy.css */
+.galaxy-container {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* Hide in light mode but keep mounted */
+body.light .galaxy-container {
+  opacity: 0;
+  visibility: hidden;
+}

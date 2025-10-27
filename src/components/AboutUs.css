@@ -1,0 +1,378 @@
+/* components/AboutUs.css */
+:root{
+  --accent: #8b5cf6;
+  --accent-2: #ff6b9d;
+  --panel: rgba(255,255,255,0.06);
+  --text: #fff;
+  --muted: #9aa0a6;
+  --border: rgba(255,255,255,0.12);
+}
+
+body.light :root{
+  --panel: rgba(0,0,0,0.04);
+  --text: #111;
+  --muted: #555;
+  --border: rgba(0,0,0,0.08);
+}
+
+.aboutus{
+  max-width: 1200px;
+  margin: 96px auto 60px;
+  padding: 0 24px;
+  color: var(--text);
+}
+
+.aboutus-hero{
+  text-align: center;
+  margin-bottom: 48px;
+  position: relative;
+  display: flex;
+  justify-content: center;
+}
+
+.hero-content-box{
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 24px;
+  padding: 48px 40px;
+  backdrop-filter: blur(12px) saturate(130%);
+  -webkit-backdrop-filter: blur(12px) saturate(130%);
+  max-width: 900px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+}
+
+.aboutus-title{
+  font-size: 3.5rem;
+  font-weight: 900;
+  margin: 0 0 16px;
+  background: linear-gradient(135deg, var(--accent), color-mix(in oklab, var(--accent) 70%, var(--accent-2)));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  letter-spacing: -0.02em;
+}
+
+.aboutus-subtitle{
+  font-size: 1.15rem;
+  line-height: 1.7;
+  color: var(--muted);
+  margin: 0 auto 16px;
+  max-width: 900px;
+}
+
+.aboutus-credit{
+  font-size: 1rem;
+  color: color-mix(in oklab, var(--accent) 70%, var(--text));
+  font-weight: 700;
+  letter-spacing: 0.03em;
+}
+
+.aboutus-grid{
+  margin-top: 40px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.aboutus-grid .profile-card:last-child{
+  grid-column: 1 / -1;
+  max-width: 380px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.profile-card{
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 24px;
+  backdrop-filter: blur(12px) saturate(130%);
+  -webkit-backdrop-filter: blur(12px) saturate(130%);
+  transition: transform .3s cubic-bezier(0.4, 0, 0.2, 1), 
+              box-shadow .3s cubic-bezier(0.4, 0, 0.2, 1), 
+              border-color .3s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.profile-card::before{
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--accent), transparent);
+  opacity: 0;
+  transition: opacity .3s ease;
+}
+
+.profile-card:hover::before{
+  opacity: 1;
+}
+
+.profile-card:hover{
+  transform: translateY(-6px);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.25);
+  border-color: color-mix(in oklab, var(--accent) 50%, var(--border));
+}
+
+.profile-card.instructor{
+  background: linear-gradient(180deg, color-mix(in oklab, var(--accent) 18%, transparent), transparent);
+  border-color: color-mix(in oklab, var(--accent) 50%, var(--border));
+  box-shadow: 0 8px 24px color-mix(in oklab, var(--accent) 15%, transparent);
+}
+
+.avatar-circle{
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  display:flex; 
+  align-items:center; 
+  justify-content:center;
+  background: radial-gradient(closest-side, color-mix(in oklab, var(--accent) 60%, var(--accent-2)), var(--accent));
+  color: white;
+  font-weight: 900;
+  font-size: 1.5rem;
+  letter-spacing: 1px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+  margin-bottom: 16px;
+  transition: transform .3s ease;
+  overflow: hidden;
+}
+
+.avatar-img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.profile-card:hover .avatar-circle{
+  transform: scale(1.05);
+}
+
+.profile-name{
+  margin: 0 0 12px;
+  font-size: 1.15rem;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+}
+
+.profile-info{
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin: 0 0 16px;
+  font-size: 0.9rem;
+}
+
+.college-name{
+  font-weight: 700;
+  color: var(--accent);
+  font-size: 0.95rem;
+}
+
+.department{
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+.instructor-appreciation{
+  font-size: 0.9rem;
+  color: color-mix(in oklab, var(--text) 85%, var(--muted));
+  line-height: 1.6;
+  margin: 0 0 16px;
+  font-style: italic;
+}
+
+.profile-links{
+  display: flex;
+  gap: 12px;
+  margin-top: auto;
+}
+
+.social-link{
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: color-mix(in oklab, var(--accent) 15%, transparent);
+  border: 1px solid color-mix(in oklab, var(--accent) 40%, var(--border));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: color-mix(in oklab, var(--accent) 80%, #ffffff);
+  transition: all .25s ease;
+  text-decoration: none;
+}
+
+.social-link:hover{
+  background: var(--accent);
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px color-mix(in oklab, var(--accent) 35%, transparent);
+}
+
+.aboutus-extras{
+  margin-top: 60px;
+}
+
+.features-section{
+  margin-bottom: 48px;
+}
+
+.features-title{
+  font-size: 2rem;
+  font-weight: 800;
+  text-align: center;
+  margin: 0 0 32px;
+  background: linear-gradient(135deg, var(--text), var(--muted));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.features-grid{
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.feature-card{
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 32px 24px;
+  text-align: center;
+  backdrop-filter: blur(12px);
+  transition: all .3s ease;
+}
+
+.feature-card:hover{
+  transform: translateY(-6px);
+  border-color: color-mix(in oklab, var(--accent) 45%, var(--border));
+  box-shadow: 0 16px 32px rgba(0,0,0,0.2);
+}
+
+.feature-icon{
+  font-size: 3rem;
+  margin-bottom: 16px;
+}
+
+.feature-heading{
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin: 0 0 12px;
+  color: var(--text);
+}
+
+.feature-text{
+  font-size: 0.95rem;
+  color: var(--muted);
+  line-height: 1.6;
+  margin: 0;
+}
+
+.funny-row{
+  display:grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-bottom: 32px;
+}
+
+.funny-card{
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 20px 24px;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: color-mix(in oklab, var(--text) 85%, var(--muted));
+  backdrop-filter: blur(8px);
+  transition: all .25s ease;
+}
+
+.funny-card:hover{
+  border-color: color-mix(in oklab, var(--accent) 35%, var(--border));
+  transform: translateY(-2px);
+}
+
+.funny-card strong{
+  color: var(--accent);
+}
+
+.cta-row{
+  display:flex; 
+  gap:16px; 
+  justify-content:center; 
+  flex-wrap:wrap;
+}
+
+.cta-btn{
+  display:inline-flex; 
+  align-items:center; 
+  justify-content:center;
+  padding: 14px 32px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, var(--accent), color-mix(in oklab, var(--accent) 80%, var(--accent-2)));
+  color: white; 
+  text-decoration:none; 
+  font-weight: 800;
+  font-size: 1rem;
+  border: 1px solid color-mix(in oklab, var(--accent) 50%, var(--border));
+  transition: all .25s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 4px 16px color-mix(in oklab, var(--accent) 25%, transparent);
+}
+
+.cta-btn:hover{ 
+  transform: translateY(-3px); 
+  box-shadow: 0 12px 28px color-mix(in oklab, var(--accent) 40%, transparent);
+}
+
+.cta-btn.ghost{
+  background: transparent;
+  color: color-mix(in oklab, var(--accent) 80%, #ffffff);
+  border-color: color-mix(in oklab, var(--accent) 60%, var(--border));
+  box-shadow: none;
+}
+
+.cta-btn.ghost:hover{
+  background: color-mix(in oklab, var(--accent) 12%, transparent);
+  border-color: var(--accent);
+  box-shadow: 0 8px 20px color-mix(in oklab, var(--accent) 20%, transparent);
+}
+
+@media (max-width: 1024px){
+  .features-grid{ grid-template-columns: 1fr; }
+}
+
+@media (max-width: 768px){
+  .aboutus-title{ font-size: 2.5rem; }
+  .aboutus-grid{ 
+    grid-template-columns: 1fr;
+    max-width: 400px;
+  }
+  .aboutus-grid .profile-card:last-child{
+    grid-column: 1;
+  }
+  .hero-content-box{
+    padding: 36px 28px;
+  }
+  .funny-row{ grid-template-columns: 1fr; }
+}
+
+@media (max-width: 480px){
+  .aboutus-title{ font-size: 2rem; }
+  .profile-card{ padding: 20px; }
+  .hero-content-box{
+    padding: 28px 20px;
+    border-radius: 18px;
+  }
+}

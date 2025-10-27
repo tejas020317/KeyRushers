@@ -1,0 +1,325 @@
+/* TypingBoxExtras.css */
+
+.typing-wrapper {
+  width: 100%;
+  max-width: 900px;
+  margin: 80px auto 0;       /* centers and pushes the block below the navbar */
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* Top controls row */
+.controls-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 12px;       /* space below timer/restart */
+  padding: 0 8px;            /* slight horizontal padding */
+}
+
+/* Timer label + buttons */
+.left-controls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.timer-label {
+  color: var(--muted);
+  font-weight: 600;
+}
+.timer-buttons {
+  display: flex;
+  gap: 6px;
+}
+.timer-btn {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  color: var(--text);
+  padding: 4px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+}
+.timer-btn.active {
+  background: var(--accent);
+  color: #fff;
+  font-weight: 700;
+}
+
+/* Restart + time display */
+.right-controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.restart-btn {
+  background: rgba(255,255,255,0.05);
+  border: none;
+  color: var(--text);
+  padding: 6px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+}
+.time-display {
+  font-weight: bold;
+  color: var(--accent);
+  font-size: 15px;
+}
+
+/* Progress bar */
+.progress-bar {
+  width: 100%;
+  height: 6px;
+  background: rgba(255,255,255,0.06);
+  border-radius: 999px;
+  overflow: hidden;
+  margin: 0 auto 24px;       /* space before typing box */
+}
+.progress-fill {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, var(--accent), rgba(59,130,246,0.85));
+  transition: width 0.2s linear;
+}
+.progress-fill.warning {
+  background: linear-gradient(90deg, #ff6b6b, #ff4d4d);
+}
+
+/* TextDisplay container override */
+.text-display.big-box {
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 32px;
+  background: rgba(0, 0, 0, 0.5);    /* dark semi-transparent */
+  border-radius: 12px;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.55);
+  font-size: 26px;
+  line-height: 2.2;
+  position: relative;
+  z-index: 1;
+}
+
+/* Light mode override: remove stacking and use light panel */
+body.light .text-display.big-box {
+  background: var(--panel);
+  position: static;
+  z-index: auto;
+}
+
+
+/* Hidden input off-screen */
+.hidden-typing-input {
+  position: absolute;
+  top: -9999px;
+  left: -9999px;
+  opacity: 0;
+}
+/* src/components/TypingBoxExtras.css */
+.typing-wrapper { overflow-x: hidden; }
+
+/* Bomb Animation Styles - Add this to your TypingBoxExtras.css */
+
+.bomb-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.85);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  animation: fadeIn 0.3s ease-out;
+  backdrop-filter: blur(8px);
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.bomb-container {
+  background: linear-gradient(135deg, rgba(255, 59, 48, 0.15), rgba(255, 149, 0, 0.15));
+  border: 2px solid rgba(255, 59, 48, 0.4);
+  border-radius: 24px;
+  padding: 48px 40px;
+  text-align: center;
+  max-width: 500px;
+  position: relative;
+  animation: slideUp 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+  box-shadow: 0 20px 60px rgba(255, 59, 48, 0.4);
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(100px) scale(0.8);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+}
+
+.bomb-emoji {
+  font-size: 5rem;
+  animation: bombShake 0.8s ease-in-out, bombPulse 1.5s infinite;
+  display: inline-block;
+  margin-bottom: 16px;
+}
+
+@keyframes bombShake {
+  0%, 100% { transform: rotate(0deg); }
+  10% { transform: rotate(-15deg); }
+  20% { transform: rotate(15deg); }
+  30% { transform: rotate(-15deg); }
+  40% { transform: rotate(15deg); }
+  50% { transform: rotate(-10deg); }
+  60% { transform: rotate(10deg); }
+  70% { transform: rotate(-5deg); }
+  80% { transform: rotate(5deg); }
+  90% { transform: rotate(0deg); }
+}
+
+@keyframes bombPulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+}
+
+.bomb-explosion {
+  font-size: 6rem;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  animation: explode 0.8s ease-out forwards;
+  opacity: 0;
+  animation-delay: 0.8s;
+  pointer-events: none;
+}
+
+@keyframes explode {
+  0% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(0.2);
+  }
+  50% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(2);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(3);
+  }
+}
+
+.bomb-message {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #fff;
+  margin: 24px 0 32px;
+  line-height: 1.5;
+  animation: messageSlide 0.6s ease-out;
+  animation-delay: 0.3s;
+  animation-fill-mode: both;
+}
+
+@keyframes messageSlide {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.bomb-close-btn {
+  background: linear-gradient(135deg, #ff3b30, #ff9500);
+  color: white;
+  border: none;
+  padding: 14px 32px;
+  border-radius: 12px;
+  font-size: 1.1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 6px 20px rgba(255, 59, 48, 0.4);
+  animation: buttonBounce 0.8s ease-out;
+  animation-delay: 0.5s;
+  animation-fill-mode: both;
+}
+
+@keyframes buttonBounce {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  60% {
+    transform: translateY(-10px);
+  }
+  80% {
+    transform: translateY(5px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.bomb-close-btn:hover {
+  transform: translateY(-4px) scale(1.05);
+  box-shadow: 0 10px 30px rgba(255, 59, 48, 0.6);
+}
+
+.bomb-close-btn:active {
+  transform: translateY(-2px) scale(1.02);
+}
+
+/* Dark mode adjustments */
+body.dark .bomb-container {
+  background: linear-gradient(135deg, rgba(255, 59, 48, 0.2), rgba(255, 149, 0, 0.2));
+  border-color: rgba(255, 59, 48, 0.5);
+}
+
+/* Light mode adjustments */
+body.light .bomb-container {
+  background: linear-gradient(135deg, rgba(255, 59, 48, 0.12), rgba(255, 149, 0, 0.12));
+  border-color: rgba(255, 59, 48, 0.35);
+}
+
+body.light .bomb-message {
+  color: #1a1a1a;
+  text-shadow: 0 1px 2px rgba(255, 255, 255, 0.5);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .bomb-container {
+    padding: 36px 28px;
+    margin: 20px;
+  }
+  
+  .bomb-emoji {
+    font-size: 4rem;
+  }
+  
+  .bomb-explosion {
+    font-size: 5rem;
+  }
+  
+  .bomb-message {
+    font-size: 1.2rem;
+  }
+  
+  .bomb-close-btn {
+    padding: 12px 28px;
+    font-size: 1rem;
+  }
+}

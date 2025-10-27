@@ -1,0 +1,14 @@
+.App, .app-root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: flex-start;
+  background-color: var(--bg);
+  color: var(--text);
+  transition: background 0.3s ease, color 0.3s ease;
+  padding-top: 0; /* remove extra spacing */
+}
+.typing-wrapper {
+  margin-top: 80px; /* ensures content is below top buttons */
+}

@@ -1,0 +1,144 @@
+/* frontend/src/components/TextDisplay.css */
+
+.text-display.big-box {
+  max-width: 900px;
+  margin: 0 auto 30px; /* Added bottom margin */
+  background: rgba(0, 0, 0, 0.55); /* Slightly darker */
+  border-radius: 12px;
+  padding: 28px;
+  box-shadow: 0 10px 35px rgba(0,0,0,0.4); /* Enhanced shadow */
+  font-family: "Fira Code", monospace;
+  font-size: 24px;
+  line-height: 2.3; /* Increased for better readability */
+  color: var(--text);
+  min-height: 200px;
+  cursor: text;
+  user-select: none;
+  text-align: left;
+  overflow: hidden;
+  will-change: contents;
+}
+
+/* Container for one line of words */
+.text-display .line {
+  /* Let words wrap naturally */
+}
+
+/* --- KEY FOR SPACING --- */
+/* Wrapper for each word - controls spacing */
+.word-wrapper {
+  display: inline-block; /* Treat each word wrapper as an inline block */
+  margin-right: 0.75ch; /* Space AFTER each word wrapper (width of '0') */
+  margin-bottom: 6px;  /* Vertical space between lines if words wrap */
+  vertical-align: top; /* Align words nicely if line height causes issues */
+}
+/* --- END KEY FOR SPACING --- */
+
+/* Individual character span */
+.char {
+  display: inline; /* Characters flow like normal text */
+  position: relative; /* Anchor for the caret */
+}
+
+/* Word states - applied to the wrapper span from Word component */
+.word-pending .char {
+  color: var(--muted);
+}
+.word-active {
+  /* Optional: Style active word */
+}
+
+
+/* Character states - applied to the inner char span */
+.correct-char {
+  color: #22c55e; /* Green */
+}
+.incorrect-char {
+  color: #ef4444; /* Red */
+  background-color: rgba(239, 68, 68, 0.15);
+  /* Use underline for clearer error indication */
+  text-decoration: underline wavy; /* Wavy underline for errors */
+  text-decoration-thickness: 1.5px;
+  text-decoration-color: #ef4444;
+  border-radius: 2px;
+}
+.extra-char {
+    /* Style characters typed beyond word length */
+     background-color: rgba(200, 50, 50, 0.25); /* Darker red background */
+     text-decoration: underline wavy;
+     text-decoration-thickness: 1.5px;
+     text-decoration-color: #ef4444;
+}
+
+
+/* --- Caret styling --- */
+.caret {
+  display: inline-block;
+  position: absolute;
+  /* Position slightly BEFORE the character span it's in */
+  left: -1px;
+  /* Align top edge with the top of the character */
+  top: 50%;
+  transform: translateY(-50%); /* Center vertically */
+  width: 2px;
+  height: 1.2em; /* Make caret slightly taller than default line height */
+  background: var(--accent);
+  border-radius: 1px;
+  animation: caret-blink 1.0s infinite; /* Smoother blink */
+  z-index: 1; /* Ensure it's above character backgrounds */
+  pointer-events: none; /* Prevent caret from interfering with clicks */
+}
+
+/* Blinking animation */
+@keyframes caret-blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+/* --- END CARET --- */
+
+/* Responsive adjustments */
+@media (max-width: 820px) {
+  .text-display.big-box {
+    padding: 20px;
+    font-size: 20px;
+    min-height: 160px;
+  }
+  .word-wrapper {
+      margin-right: 0.65ch; /* Adjust spacing */
+  }
+}
+
+@media (max-width: 480px) {
+    .text-display.big-box {
+        padding: 16px;
+        font-size: 18px;
+        line-height: 2.1;
+        min-height: 140px;
+    }
+}
+
+/* Light mode specific adjustments */
+body.light .text-display.big-box {
+    background: var(--panel-light, #f0f0f0); /* Lighter background */
+    color: var(--text-light, #111);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+    border: 1px solid rgba(0,0,0,0.1);
+}
+
+body.light .word-pending .char {
+    color: var(--muted-light, #888);
+}
+
+body.light .incorrect-char {
+    color: #cc0000; /* Darker red */
+    background-color: rgba(255, 0, 0, 0.1);
+    text-decoration-color: #cc0000;
+}
+body.light .extra-char {
+    background-color: rgba(220, 0, 0, 0.15);
+    text-decoration-color: #cc0000;
+}
+
+body.light .caret {
+    background: var(--accent-light, #6a0dad); /* Ensure caret color works */
+}
