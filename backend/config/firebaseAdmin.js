@@ -1,11 +1,11 @@
 const admin = require('firebase-admin');
 
-if (!process.env.FIREBASE_SERVICE_ACCOUNT_KEY) {
-  console.error('❌ FIREBASE_SERVICE_ACCOUNT_KEY is not set in environment variables');
+if (!process.env.FIREBASE_SERVICE_ACCOUNT) {
+  console.error('❌ FIREBASE_SERVICE_ACCOUNT is not set in environment variables');
   process.exit(1);
 }
 
-const serviceAccount = JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT_KEY);
+const serviceAccount = JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT);
 
 if (!admin.apps.length) {
   admin.initializeApp({
