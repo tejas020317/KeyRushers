@@ -1,5 +1,11 @@
 const admin = require('firebase-admin');
-const serviceAccount = require('./serviceAccountKey.json'); // JSON is in the same folder as this file
+
+if (!process.env.FIREBASE_SERVICE_ACCOUNT_KEY) {
+  console.error('❌ FIREBASE_SERVICE_ACCOUNT_KEY is not set in environment variables');
+  process.exit(1);
+}
+
+const serviceAccount = JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT_KEY);
 
 if (!admin.apps.length) {
   admin.initializeApp({
