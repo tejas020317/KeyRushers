@@ -11,6 +11,7 @@ import os
 # Flask Setup
 # -------------------------------------------------
 app = Flask(__name__)
+# Allow all origins for /api/* routes; adjust as needed
 CORS(app, resources={r"/api/*": {"origins": "*"}})
 
 # -------------------------------------------------
@@ -30,7 +31,8 @@ try:
     print("✅ Word bank loaded successfully.")
 except FileNotFoundError:
     print(f"❌ ERROR: The model file '{MODEL_PATH}' was not found.")
-    exit()
+    # Fail fast in container so Render shows a clear error
+    raise
 
 # -------------------------------------------------
 # In-memory user profile
@@ -58,19 +60,25 @@ def make_targeted_words(error_profile, num_words=50):
     return output_words
 
 # -------------------------------------------------
+# Health Check (for Render)
+# -------------------------------------------------
+@app.route('/api/health', methods=['GET'])
+def health():
+    # Lightweight checks; extend if needed (e.g., attempt outbound ping or verify model present)
+    return jsonify({"status": "ok"}), 200
+
+# -------------------------------------------------
 # Flask API Endpoints
 # -------------------------------------------------
-
-@app.route('/api/get_test')
+@app.route('/api/get_test', methods=['GET'])
 def get_typing_test():
     print(f"🧠 Generating practice test based on: {user_error_profile}")
     personalized_test = make_targeted_words(user_error_profile)
-    return jsonify(personalized_test)
-
+    return jsonify(personalized_test), 200
 
 @app.route('/api/log_mistake', methods=['POST'])
 def log_mistake():
-    data = request.get_json()
+    data = request.get_json(silent=True) or {}
     letters = data.get('letters')
 
     if not isinstance(letters, list):
@@ -85,23 +93,23 @@ def log_mistake():
     print(f"📝 Logged {mistakes_logged_count} mistakes. Profile: {user_error_profile}")
     return jsonify({"status": "success", "profile": user_error_profile}), 200
 
-
 # -------------------------------------------------
 # Example Endpoint: Communicate with Node Backend
 # -------------------------------------------------
-@app.route('/api/ping-node')
+@app.route('/api/ping-node', methods=['GET'])
 def ping_node():
     """Simple check to test Node <-> Python connection"""
     try:
-        res = requests.get(f"{NODE_BACKEND_URL}/api/health")
+        res = requests.get(f"{NODE_BACKEND_URL}/api/health", timeout=5)
         return jsonify({"node_response": res.json()}), 200
     except Exception as e:
         return jsonify({"error": f"Failed to contact Node backend: {str(e)}"}), 500
 
-
 # -------------------------------------------------
-# Start Flask Server
+# Local Dev Entry Point
 # -------------------------------------------------
+# Keep for local runs; Render will use Gunicorn to import backend.app:app
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5000))
+    # Bind to 0.0.0.0 for local docker or cloud; use PORT if provided
     app.run(host='0.0.0.0', port=port)
