@@ -10,7 +10,15 @@ const app = express();
 connectDB();
 
 app.use(helmet());
-app.use(cors({ origin: ['http://localhost:3000'] }));
+app.use(cors({
+  origin: [
+    'http://localhost:3000',
+    'https://keyrushers.web.app'
+  ],
+  methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'],
+  credentials: true
+}));
+
 app.use(express.json({ limit: '200kb' }));
 app.use(compression());
 app.use(morgan('tiny'));
